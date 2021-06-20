@@ -1,4 +1,7 @@
-import {getAllPostsWithFrontMatter} from "../lib/utils";
+import {getAllPostsWithFrontMatter} from "../lib/utils/utils";
+import {Contents} from "../lib/contents/Contents";
+import {DataTypeEnum} from "../lib/contents/DataTypeEnum";
+
 
 export type BlogFrontMatter = {
     title: string
@@ -40,7 +43,6 @@ export default function Home({posts, title, description}: BlogProps) {
             <div>{title} ====== {description}</div>
 
             {posts && posts.map((post) => {
-                console.log(post)
                 return (
                     <div key={post.slug}>
                         <h5>{post.frontMatter.title}</h5>
@@ -58,7 +60,13 @@ export default function Home({posts, title, description}: BlogProps) {
 
 export async function getStaticProps() {
     const posts = await getAllPostsWithFrontMatter('_posts')
-    console.log(posts)
+    // console.log(posts)
+
+    let contents = new Contents();
+    contents.dataType = DataTypeEnum.Posts
+    console.log(contents)
+    contents.getAllData()
+
     return {
         props: {
             posts,

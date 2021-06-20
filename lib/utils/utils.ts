@@ -3,7 +3,9 @@ import path from 'path'
 import matter from 'gray-matter'
 
 const root = process.cwd()
-const contentPath = 'content'
+const contentPath = 'contents'
+
+
 
 export async function getFiles(dataType: string) {
     return fs.readdirSync(path.join(root, contentPath, dataType), 'utf-8')
@@ -25,12 +27,18 @@ export async function getAllPostsWithFrontMatter(dataType: string) {
 
     // @ts-ignore
     return files.reduce((allPosts, postSlug) => {
-        const source = fs.readFileSync(path.join(root, contentPath, dataType, postSlug), 'utf8')
-        const {data} = matter(source)
 
+        const data = matter(fs.readFileSync(path.join(root, contentPath, dataType, postSlug), 'utf8'))
+        console.log('///////////////////////////////////')
+
+        console.log(data)
+        console.log(allPosts)
+        console.log(postSlug)
+
+        console.log('///////////////////////////////////')
         return [
             {
-                frontMatter: data,
+                frontMatter: {},
                 slug: postSlug.replace('.md', ''),
             },
             ...allPosts,
