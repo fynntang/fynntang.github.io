@@ -1,77 +1,58 @@
-import {getAllPostsWithFrontMatter} from "../lib/utils/utils";
-import {Contents} from "../lib/contents/Contents";
-import {DataTypeEnum} from "../lib/contents/DataTypeEnum";
+import Container from '../components/container'
+import MoreStories from '../components/more-stories'
+import HeroPost from '../components/hero-post'
+import Intro from '../components/intro'
+import Layout from '../components/layout'
+import { getAllPosts } from '../lib/api'
+import Head from 'next/head'
+import { CMS_NAME } from '../lib/constants'
+import Post from '../types/post'
 
-
-export type BlogFrontMatter = {
-    title: string
-    description: string
-    publishedDate: string
-    tags: string[]
+type Props = {
+    allPosts: Post[]
 }
 
-export type BlogLayoutProps = {
-    children: React.ReactNode
-    frontMatter: BlogFrontMatter
-    wordCount: number
-    readingTime: string
-}
-
-export type BlogPostProps = {
-    slug: string
-    siteTitle: string
-    frontMatter: BlogFrontMatter
-    markdownBody: any
-    wordCount: number
-    readingTime: string
-}
-
-export type BlogPostsProps = {
-    posts?: BlogPostProps[]
-}
-
-export interface BlogProps extends BlogPostsProps {
-    title: string
-    description: string
-}
-
-export default function Home({posts, title, description}: BlogProps) {
-    // console.log(posts)
-
+const Index = ({ allPosts }: Props) => {
+    const heroPost = allPosts[0]
+    const morePosts = allPosts.slice(1)
     return (
         <>
-            <div>{title} ====== {description}</div>
-
-            {posts && posts.map((post) => {
-                return (
-                    <div key={post.slug}>
-                        <h5>{post.frontMatter.title}</h5>
-                        <p>{post.frontMatter.description}</p>
-                        {/*<p>[ {post.frontMatter.tags.join(', ')} ]</p>*/}
-                    </div>
-                )
-
-            })}
-
+            <Layout>
+                <Head>
+                    <title>Next.js Blog Example with {CMS_NAME}</title>
+                </Head>
+                <Container>
+                    <Intro />
+                    {heroPost && (
+                        <HeroPost
+                            title={heroPost.title}
+                            coverImage={heroPost.coverImage}
+                            date={heroPost.date}
+                            author={heroPost.author}
+                            slug={heroPost.slug}
+                            excerpt={heroPost.excerpt}
+                        />
+                    )}
+                    {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+                </Container>
+            </Layout>
         </>
     )
 }
 
+export default Index
 
-export async function getStaticProps() {
-    const posts = await getAllPostsWithFrontMatter('_posts')
-    // console.log(posts)
-
-    let contents = new Contents();
-    contents.dataType = DataTypeEnum.Posts
-    console.log(contents)
-    contents.getAllData()
+export const getStaticProps = async () => {
+    const allPosts = getAllPosts([
+        'title',
+        'date',
+        'slug',
+        'author',
+        'coverImage',
+        'excerpt',
+    ])
 
     return {
-        props: {
-            posts,
-            title: 'Blog',
-            description: 'Posts on software engineering',
-        },
+        props: { allPosts },
     }
 }

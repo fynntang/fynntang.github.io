@@ -1,21 +1,13 @@
 ---
-
-title: Test01
-
-date: 2021-06-13 13:30
-
-tags:
-- test 
-- ttss
-
-categories:
-- 66 
-- 7698
-
-thumbnail: https://blog-1256184194.file.myqcloud.com/2021/06/13/052cb621cffde.jpg
-
-copyright: true
-
+title: 'test01'
+excerpt: 'test01'
+coverImage: '/assets/blog/preview/cover.jpg'
+date: '2020-03-16T05:35:07.322Z'
+author:
+ name: Joe Haddad
+ picture: '/assets/blog/authors/joe.jpeg'
+ogImage:
+ url: '/assets/blog/preview/cover.jpg'
 ---
 
 test01
