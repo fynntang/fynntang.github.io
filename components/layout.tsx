@@ -10,10 +10,8 @@ const Layout = ({children}: Props) => {
     return (
         <>
             <Meta/>
-            <div>
-                <main>{children}</main>
-                <Footer/>
-            </div>
+            <main id="main" className={`main w-full min-h-full h-auto mx-auto pt-0 lg:pt-24`}>{children}</main>
+            <Footer/>
         </>
     )
 }
