@@ -1,6 +1,6 @@
-import Avatar from './avatar'
-import DateFormatter from './date-formatter'
-import CoverImage from './cover-image'
+import Avatar from '@components/avatar'
+import DateFormatter from '@components/date-formatter'
+import CoverImage from '@components/cover-image'
 import Link from 'next/link'
 import Author from '../types/author'
 
@@ -28,7 +28,7 @@ const PostPreview = ({title, coverImage, date, excerpt, author, slug,}: Props) =
                 <DateFormatter dateString={date}/>
             </div>
             <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
-            <Avatar name={author.name||''} picture={author.picture||''}/>
+            <Avatar name={author.name || ''} picture={author.picture || ''}/>
         </div>
     )
 }

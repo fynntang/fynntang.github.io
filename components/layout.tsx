@@ -1,5 +1,5 @@
-import Footer from './footer'
-import Meta from './meta'
+import Footer from '@components/footer'
+import Meta from '@components/meta'
 import React from "react";
 
 type Props = {
