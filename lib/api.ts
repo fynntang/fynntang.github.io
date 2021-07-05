@@ -85,7 +85,7 @@ export function getPageBySlug(slug: string, fields: string[] = []) {
 export function getAllPages(fields: string[] = []) {
     const slugs = getPageSlugs()
     const pages = slugs
-        .map((slug) => getPostBySlug(slug, fields))
+        .map((slug) => getPageBySlug(slug, fields))
         // sort posts by date in descending order
         .sort((page1, page2) => (page1.date > page2.date ? -1 : 1))
     return pages
